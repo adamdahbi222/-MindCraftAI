@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCraftAI</title>
+    <link rel="website icon" type="png"
+    href="Screenshot_2025-03-01_at_23.22.57-removebg-preview.png"    width="100%">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
+    <style>
+  
+        .neumorphic {
+            background: #e0e5ec;
+            border-radius: 20px;
+           
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+       
+        .neumorphic-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            border-radius: 15px;
+            background: #e0e5ec;
+            box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+        }
+
+       
+        .neumorphic_input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: #e0e5ec;
+            box-shadow: inset 3px 3px 6px #a3b1c6, inset -3px -3px 6px #ffffff;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+      
+        .error {
+            animation: shake 0.3s ease-in-out;
+            box-shadow: inset 3px 3px 6px red, inset -3px -3px 6px #ffaaaa;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+       
+        .neumorphic_but {
+          padding: 12px 20px;
+          border-radius: 12px;
+          border: none;
+          background: linear-gradient(90deg, #00f0ff, #ff00ff);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          width: 100%;
+          box-sizing: border-box;
+          margin-top: 10px;
+        }
+        .neumorphic_but:hover {
+            box-shadow: inset 3px 3px 6px #a3b1c6, inset -3px -3px 6px #ffffff;
+        }
+
+        .neumorphic_but:active {
+            box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+        }
+
+      
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+    
+
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+<body>
+  <form id="login-form" class="neumorphic">
+    <div class="neumorphic">
+        <div class="neumorphic-card">
+            <h1>Login</h1>
+            <input type="text" id="nom" class="neumorphic_input" placeholder="nom">
+            <input type="text" id="prenom" class="neumorphic_input" placeholder="prenom">
+            <input type="email" id="email" class="neumorphic_input" placeholder="email">
+            <input type="tel" id="tel" class="neumorphic_input" placeholder="6 98 65 46 12">
+
+           
+
+            <input type="password" id="password" class="neumorphic_input" placeholder="Mot de passe">
+            <input type="password" id="confirm-password" class="neumorphic_input" placeholder="Confirmer le mot de passe">
+            <span id="password-message" style="color: red; font-size: 0.9em;"></span>
+            <p class="error-message" id="success-message" style="display: none;"></p>
+            <p class="error-message" id="error-message" style="display: none; color: red;"></p>
+
+            <br>
+            <button class="neumorphic_but" id="login-btn">Sign In</button>
+        </div>
+    </div>
+  </form>
+
+  <script>
+    // Form submission and initialization
+    document.addEventListener("DOMContentLoaded", function () {
+      // Initialize phone input
+      const telInput = document.querySelector("#tel");
+      const iti = window.intlTelInput(telInput, {
+        initialCountry: "ma", // Maroc par défaut
+        preferredCountries: ["ma", "fr", "dz", "us"],
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js"
+      });
+
+      // Password confirmation validation
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirm-password");
+      const passwordMessage = document.getElementById("password-message");
+    
+      confirmPassword.addEventListener("input", () => {
+        if (confirmPassword.value !== password.value) {
+          passwordMessage.textContent = "Les mots de passe ne correspondent pas.";
+        } else {
+          passwordMessage.textContent = "";
+        }
+      });
+      const btn = document.getElementById("login-btn");
+      const successMessage = document.getElementById("success-message");
+      const errorMessage = document.getElementById("error-message");
+
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Récupération des valeurs
+        const nom = document.getElementById("nom").value.trim();
+        const prenom = document.getElementById("prenom").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const tel = iti.getNumber(); // Get full international number
+        const passwordValue = document.getElementById("password").value.trim();
+        const confirmPasswordValue = document.getElementById("confirm-password").value.trim();
+
+        // Reset messages
+        successMessage.textContent = "";
+        successMessage.style.display = "none";
+        errorMessage.textContent = "";
+        errorMessage.style.display = "none";
+        passwordMessage.textContent = "";
+
+        // Validation des champs vides
+        if (!nom || !prenom || !email || !tel || !passwordValue || !confirmPasswordValue) {
+          errorMessage.textContent = "Veuillez remplir tous les champs.";
+          errorMessage.style.display = "block";
+          successMessage.style.display = "none";
+          return;
+        }
+
+        // Validation mot de passe
+        if (passwordValue !== confirmPasswordValue) {
+          passwordMessage.textContent = "Les mots de passe ne correspondent pas.";
+          errorMessage.textContent = "Les mots de passe ne correspondent pas.";
+          errorMessage.style.display = "block";
+          successMessage.style.display = "none";
+          return;
+        }
+
+        // Send data to server
+        const formData = new URLSearchParams();
+        formData.append("nom", nom);
+        formData.append("prenom", prenom);
+        formData.append("email", email);
+        formData.append("tel", tel);
+        formData.append("password", passwordValue);
+        formData.append("confirm_password", confirmPasswordValue);
+
+        fetch("ai.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: formData.toString()
+        })
+        .then(res => res.text())
+        .then(data => {
+          const response = data.trim();
+          if (response === "success") {
+            successMessage.style.color = "green";
+            successMessage.textContent = "Inscription réussie !";
+            successMessage.style.display = "block";
+            errorMessage.style.display = "none";
+            passwordMessage.textContent = "";
+            // Optionally reset form
+            document.getElementById("login-form").reset();
+            iti.setNumber("");
+          } else if (response === "password_mismatch") {
+            passwordMessage.textContent = "Les mots de passe ne correspondent pas.";
+            errorMessage.textContent = "Les mots de passe ne correspondent pas.";
+            errorMessage.style.display = "block";
+            successMessage.style.display = "none";
+          } else {
+            errorMessage.textContent = "Erreur lors de l'inscription. Veuillez réessayer.";
+            errorMessage.style.display = "block";
+            successMessage.style.display = "none";
+            passwordMessage.textContent = "";
+          }
+        })
+        .catch(err => {
+          errorMessage.textContent = "Erreur de connexion au serveur.";
+          errorMessage.style.display = "block";
+          successMessage.style.display = "none";
+          console.error(err);
+        });
+      });
+    });
+  </script>
+    <style>
+        .neumorphic_input {
+          border: none;
+          outline: none;
+          padding: 12px 15px;
+          border-radius: 12px;
+          box-shadow: inset 3px 3px 6px #ccc, inset -3px -3px 6px #fff;
+          background: #e0e0e0;
+          font-size: 16px;
+          margin: 10px 0;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .neumorphic_but {
+          padding: 12px 20px;
+          border-radius: 12px;
+          border: none;
+          background: linear-gradient(90deg, #00f0ff, #ff00ff);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          width: 100%;
+          box-sizing: border-box;
+          margin-top: 10px;
+        }
+        #password-message {
+          color: red;
+          font-size: 0.9em;
+          height: 1.2em;
+        }
+        #success-message {
+          font-size: 1em;
+          height: 1.2em;
+          margin-top: 10px;
+        }
+      </style>
+    
+  
+  
+  
+       
+        
+</body>
+</html>

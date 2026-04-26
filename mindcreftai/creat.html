@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindCraftAI • Chat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+   
+       
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(130deg , #ffffff,);
+    }
+
+    .brand {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, #6a0dad, #a55eea);
+      color: #fff;
+      border-radius: 16px;
+      padding: 12px 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.2);
+      z-index: 1000;
+    }
+
+    .brand img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(255,255,255,.2);
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: .5px;
+    }
+
+    .brand:hover {
+      transform: scale(1.03);
+      transition: transform .2s ease;
+    }
+
+    .chat-bot {
+      width: 100%;
+      max-width: 1000px;
+      height: 700px;
+      background: #ffffff;
+      border-radius: 25px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      margin-left: 100px;
+     
+    }
+
+    .name-chat {
+      background: linear-gradient(135deg, #a55eea, #8854d0);
+      height: 100px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 30px;
+      box-shadow: 0 4px 20px rgba(165, 94, 234, 0.3);
+    }
+
+    .name-chat h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fafafa;
+      position: relative;
+    }
+
+    .chat__body {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #ffffff;
+      height: 400px;
+    }
+
+    .msg {
+      max-width: 70%;
+      margin: 15px 0;
+      padding: 15px 20px;
+      border-radius: 20px;
+      font-size: 15px;
+      line-height: 1.4;
+      word-wrap: break-word;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.user {
+      margin-left: auto;
+      background: linear-gradient(135deg, #7c3aed, #a78bfa);
+      color: #fff;
+      border-bottom-right-radius: 8px;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.2);
+    }
+
+    .msg.other {
+      margin-right: auto;
+      background: #f1f5f9;
+      color: #374151;
+      border-bottom-left-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+
+    .chat__footer {
+      background: #ffffff;
+      padding: 20px 30px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .chat__footer input {
+      flex: 1;
+      border: 2px solid #a55eea;
+      border-radius: 30px;
+      height: 50px;
+      padding: 0 20px;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s ease;
+      background: #f9fafb;
+    }
+
+    .chat__footer input:focus {
+      border-color: #7c3aed;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+
+    .chat__footer button {
+      background: linear-gradient(135deg, #a55eea, #8854d0);
+      border-radius: 30px;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(165, 94, 234, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .chat__footer button:hover {
+      background: linear-gradient(135deg, #b77eff, #9b59d0);
+      box-shadow: 0 6px 15px rgba(165, 94, 234, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .chat__footer button:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 8px rgba(165, 94, 234, 0.3);
+    }
+
+    /* Scrollbar styling */
+    .chat__body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat__body::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 3px;
+    }
+
+    .chat__body::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 3px;
+    }
+
+    .chat__body::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+
+    /* Welcome message */
+    .welcome-msg {
+      text-align: center;
+      color: #6b7280;
+      font-style: italic;
+      margin: 20px 0;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .chat-bot {
+        height: 100vh;
+        border-radius: 0;
+        margin: 0;
+      }
+      
+      .brand {
+        top: 10px;
+        left: 10px;
+        padding: 8px 12px;
+      }
+      
+      .brand img {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .brand h1 {
+        font-size: 16px;
+      }
+    }
+    .menu{
+
+background: linear-gradient(135deg, #a55eea, #8854d0);
+      color: #fff;
+      border-radius: 30px;
+   
+      margin-left: 1500px;
+      margin-top: -860px;
+    width: 60px;
+    height: 50px;
+    display: flex;
+position: fixed;
+   
+     
+     
+    }
+    .menu  svg {
+      margin-left: 12px;
+      margin-top:5px;
+      
+   
+
+    }
+   
+    .mini-page {
+      position: fixed;
+      top: 0;
+      right: -400px; /* cachée au début */
+      width: 400px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+      transition: right 0.3s ease-in-out;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .mini-page.active {
+      right: 0;
+    }
+
+    /* Overlay (fond gris derrière) */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* Bouton fermer */
+    .close-btn {
+      border: none;
+      background: none;
+      font-size: 24px;
+      cursor: pointer;
+      float: right;
+    }
+  .mini-page a button  {
+    background: linear-gradient(130deg,  #a55eea, #8854d0 );
+    color: #fff;
+    border-radius: 10px;
+    border-color: #a78bfa;
+    width: 220px;
+   margin-top:  80px;
+    width: 350px;
+    height: 40px;
+    font-size: 20px;
+
+
+  }
+  .close-btn19 {
+  background: #fff;
+  color: #7c3aed;     /* texte violet */
+  width: 100px;
+  border-radius: 30px;
+  border: 2px solid #7c3aed; /* pour bien voir la bordure */
+  cursor: pointer;
+  padding: 10px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.close-btn19:hover {
+  background-color: #000;  /* fond noir au hover */
+  color: #fff;             /* texte blanc au hover */
+}
+.close-btn22 {
+  background: #fff;
+  color: #7c3aed;     /* texte violet */
+  width: 100px;
+  border-radius: 30px;
+  border: 2px solid #7c3aed; /* pour bien voir la bordure */
+  cursor: pointer;
+  padding: 10px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.close-btn22:hover {
+  background-color: #000;  /* fond noir au hover */
+  color: #fff;             /* texte blanc au hover */
+}
+.close-btn33 {
+  background: #fff;
+  color: #7c3aed;     /* texte violet */
+  width: 100px;
+  border-radius: 30px;
+  border: 2px solid #7c3aed; /* pour bien voir la bordure */
+  cursor: pointer;
+  padding: 10px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.close-btn33:hover {
+  background-color: #000;  /* fond noir au hover */
+  color: #fff;             /* texte blanc au hover */
+}
+
+  
+  
+  </style>
+</head>
+<body>
+  <!-- Brand badge -->
+  <div class="brand">
+    <img src="Screenshot_2025-03-01_at_23.22.57-removebg-preview.png" alt="Logo MindCraftAI" />
+    <h1>MindCraftAI</h1>
+  </div>
+
+  <!-- Chat Interface -->
+  <div class="chat-bot">
+    <div class="name-chat">
+      <h1>MindCraftAI • Chat</h1>
+    </div>
+    <div class="chat">
+      <div id="chatBody" class="chat__body">
+        <div class="welcome-msg">
+          👋 Bonjour ! Je suis MindCraftAI, votre assistant personnel. Comment puis-je vous aider aujourd'hui ?
+        </div>
+      </div>
+      <div class="chat__footer">
+        <input id="chatInput" type="text" placeholder="Tapez votre message ici..." />
+        <button id="sendBtn">Envoyer</button>
+      </div>
+    </div>
+  </div>
+  <div class="menu"onclick="togglePage()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+    </svg>
+  </div>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="togglePage()"></div>
+
+    <!-- Mini page -->
+  <!-- Mini Page for Chatbot / Tasks -->
+  <!-- Mini page -->
+    <div class="mini-page" id="miniPage">
+      <button class="close-btn" onclick="togglePage()">✖</button>
+    <a href="#" ><button> + Nouvelle tâche</button></a>
+ 
+<i ><button class="close-btn19">Tout</button></i>
+<button class="close-btn22">Favoris</button>
+<button class="close-btn33">Planifé</button>
+    
+</div>
+    <script>
+      function togglePage() {
+        document.getElementById("miniPage").classList.toggle("active");
+        document.getElementById("overlay").classList.toggle("active");
+      }
+    </script>
+  
+    
+  <script>
+    const chatBody = document.getElementById('chatBody');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    
+    function addMessage(text, who) {
+      const msg = document.createElement('div');
+      msg.className = `msg ${who}`;
+      msg.textContent = text;
+      chatBody.appendChild(msg);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+    
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      
+      addMessage(text, 'user');
+      chatInput.value = '';
+      
+     
+      setTimeout(() => {
+        const responses = [
+          "Merci pour votre message ! Je comprends votre demande.",
+          "Excellente question ! Laissez-moi vous aider avec cela.",
+          "Je suis là pour vous assister. Pouvez-vous me donner plus de détails ?",
+          "Très intéressant ! Voici ce que je peux vous dire...",
+          "Je vais faire de mon mieux pour répondre à votre question.",
+          "C'est une excellente observation. Voici ma réponse...",
+          "Merci de partager cela avec moi. Comment puis-je vous aider ?"
+        ];
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        addMessage(randomResponse, 'other');
+      }, 1000);
+    }
+    
+    sendBtn.addEventListener('click', sendMessage);
+    
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
+ 
+
+</body>
+</html> 

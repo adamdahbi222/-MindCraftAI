@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>MindCraftAI</title>
+    <link rel="stylesheet" href="ai.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <link rel="website icon" type="png" href="Screenshot_2025-03-01_at_23.22.57-removebg-preview.png">
+    
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel pour JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div class="header1">
+        <div class="logo">
+            <img src="Screenshot_2025-03-01_at_23.22.57-removebg-preview.png" alt="MindCraftAI Logo">
+        </div>
+        
+        <div class="nom">
+            <h1>MindCraftAI</h1>
+        </div>
+
+        <div class="log_in">
+            <a href="aillogin.html" class="login-btn">Log In</a>
+        </div>
+
+        <div class="menu">
+            <a href="#" onclick="toggleMainMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-menu-button-wide" viewBox="0 0 16 16">
+                    <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v2A1.5 1.5 0 0 1 14.5 5h-13A1.5 1.5 0 0 1 0 3.5zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5z"/>
+                    <path d="M2 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m10.823.323-.396-.396A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0M0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <nav class="navi">
+        <ul class="navi">
+            <li><a href="#" onclick="togglePage()">Home</a></li>
+            <li><a href="#" onclick="togglePage1()">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Portfolio</a></li>
+        </ul>
+        
+        <!-- Mini Page for Home -->
+        <div class="mini-page" id="miniPageContent">
+            <button class="close-btn" onclick="togglePage()">&times;</button>
+            <div class="mini-page-content">
+                <h2>🏠 Home Navigation</h2>
+                <div class="navigation-menu">
+                    <a href="#hero" onclick="scrollToSection('hero')">
+                        <button>🚀 Hero Section</button>
+                    </a>
+                    <a href="#features" onclick="scrollToSection('features')">
+                        <button>⭐ Features</button>
+                    </a>
+                    <a href="#domain-search" onclick="scrollToSection('domain-search')">
+                        <button>🌐 Domain Search</button>
+                    </a>
+                    <a href="#pricing" onclick="scrollToSection('pricing')">
+                        <button>💰 Pricing Plans</button>
+                    </a>
+                    <a href="#contact" onclick="scrollToSection('contact')">
+                        <button>📞 Contact</button>
+                    </a>
+                </div>
+                
+                <div class="quick-actions1">
+                    <a href="creat.html" onclick="createWithMindCraftAI(); togglePage();">
+                        <button class="primary-btn">🎮 Create Game</button>
+                    </a>
+                    <a href="aillogin.html">
+                        <button class="secondary-btn">🔐 Login</button>
+                    </a>
+                </div>
+                
+                <div class="mini-page-footer">
+                    <p>MindCraftAI - Build Your Game Empire</p>
+                    <small>© 2025 MetaPlay | All Rights Reserved</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Page for About -->
+        <div class="mini-page1" id="miniPageContent1">
+            <button class="close-btn1" onclick="togglePage1()">&times;</button>
+            <div class="mini-page-content1">
+                <h2>About Navigation</h2>
+                <div class="navigation-menu1">
+                    <a href="#About MindCraftAI" onclick="scrollToSection('About MindCraftAI')">
+                        <button type="button">About MindCraftAI</button>
+                    </a>
+                    <a href="#À propos" onclick="scrollToSection('À propos')">
+                        <button type="button">À propos</button>
+                    </a>
+                    <a href="#Quisommes-nous" onclick="scrollToSection('Quisommes-nous')">
+                        <button type="button">Qui sommes-nous ?</button>
+                    </a>
+                </div>
+                <div class="mini-page-footer1">
+                    <p>MindCraftAI - Build Your Game Empire</p>
+                    <small>© 2025 MetaPlay | All Rights Reserved</small>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="wrapper">
+        <div class="container">
+            <input type="radio" name="slide" id="c1" checked>
+            <label for="c1" class="card">
+                <div class="row">
+                    <div class="icon">1</div>
+                    <div class="description">
+                        <h4>Scale and collaborate</h4>
+                        <p>15,000 websites are published with Webflow every hour. Confidently scale your site with tools for</p>
+                    </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c2">
+            <label for="c2" class="card">
+                <div class="row">
+                    <div class="icon">2</div>
+                    <div class="description">
+                        <h4>Design and build</h4>
+                        <p>Designers can take control of HTML, CSS, and JavaScript in a</p>
+                    </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c3">
+            <label for="c3" class="card">
+                <div class="row">
+                    <div class="icon">3</div>
+                    <div class="description">
+                        <h4>Publish and edit</h4>
+                        <p>Choose how you want to add, edit, and update content at scale with Webflow's CMS</p>
+                    </div>
+                </div>
+            </label>
+
+            <input type="radio" name="slide" id="c4">
+            <label for="c4" class="card">
+                <div class="row">
+                    <div class="icon">4</div>
+                    <div class="description">
+                        <h4>Publish and edit</h4>
+                        <p>Choose how you want to add, edit, and update content at scale with Webflow's CMS</p>
+                    </div>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="free">
+        <h1>MindCraft<span>AI</span><br> Without the<br> Complexity</h1>
+        <br>
+        <h5>Design, launch, and grow <br>your game world — all from one smart platform.</h5>
+        <a href="creat.html" id="creat" class="btn">Create with MindCraftAI</a>
+    </div>
+
+    <div class="img_0">
+        <h1 class="power-title">Discover the perfect domain for your game world or virtual universe</h1>
+        <div class="domain-search-container">
+            <input type="text" id="domainSearchInput" placeholder="Enter your domain name...">
+            <button onclick="searchDomain()" class="search-btn">Search Domain</button>
+        </div>
+    </div>
+
+    <div class="tout">
+        <div class="Performance_and_High_Availability">
+            <svg xmlns="http://www.w3.org/2000/svg" width="302" height="102" fill="blueviolet" class="bi bi-speedometer2" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3.793l2.146 2.147a.5.5 0 0 1-.708.708L7.5 9.207V4.5A.5.5 0 0 1 8 4z"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm1.93 2.68A7 7 0 1 0 14.07 5.32a7 7 0 0 0-12.14 5.36z"/>
+            </svg>
+            <h1>Optimized Efficiency <br> and Continuous Uptime</h1>
+            <br>
+            <h3>Gérez efficacement les ressources allouées à chacun de vos <br>comptes d'hébergement pour une performance optimale<br> de votre site MindCraftAI.</h3>
+        </div>
+
+        <div class="Sauvegardes_et_restauration">
+            <h1>Sauvegardes et restauration</h1>
+            <br>
+            <h3>Restez serein grâce à un système de sauvegarde <br>automatique et de restauration rapide <br>de votre site MindCraftAI.</h3>
+        </div>
+
+        <div class="Support_technique">
+            <h1>Support technique</h1>
+            <br>
+            <h3>Bénéficiez d'un support technique<br> réactif 24/7 pour assurer la continuité<br> de votre activité</h3>
+        </div>
+
+        <div class="Sauvegardes_et_restauration_svg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="302" height="102" fill="blueviolet" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 0a5.53 5.53 0 0 0-3.594 1.328 4.002 4.002 0 0 0-3.48 5.652A3.5 3.5 0 0 0 5.5 14h7a3 3 0 0 0 .5-5.983A4.5 4.5 0 0 0 8 0zM7.5 7.5v4h-1v-4h-1.5l2-2 2 2H7.5z"/>
+            </svg>
+        </div>
+
+        <div class="Support_technique_svg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="302" height="102" fill="blueviolet" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1Zm4-6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4.5-1.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Z"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="domaine-section">
+        <h3>
+            Réserve le territoire numérique parfait pour ton univers de jeu virtuel, avec ou sans site, à un prix imbattable.<br>
+            Des extensions prisées comme .gg, .game, .vr, et .zone sont disponibles.<br>
+            Immersif, facile à partager, et idéal pour faire briller ton projet MetaPlay ou MindCraft dans le multivers digital.
+        </h3>
+    </div>
+    
+    <div class="domaine-section_h1">
+        <h1>Construis ton empire en ligne</h1>
+        <br><br>
+    </div>
+
+    <div class="premium">
+        <h1>Premium</h1>
+        <h3>The complete toolkit to start</h3>
+        <h2>US$ <span>3.99</span>/mo</h2>
+        <a href="#"><button>Choose plan</button></a>
+        <h5>Get 48 months for <span>US$ 143.32 (regular price US$ 575.32). Renews as US$ 10.99/mo</span></h5>
+        <h2>🎮 AI Game Builder Plan <br>
+            Create up to 25 virtual games powered by AI <br>
+            25 GB of storage for your game assets & files (SSD) <br>
+            2 player accounts per game free for 1 year <br>
+            Premium Benefits:<br>
+            Free custom game domain for 1 year <br>
+            Secure every game with free SSL protection <br>
+            Weekly auto-backups to recover game data anytime <br>
+            AI-powered marketing tools to grow your community <br>
+            Free game migration with no downtime <br>
+            Build new games in minutes with our AI Game Builder <br>
+            Automatic updates & maintenance for your AI games</h2>
+    </div>
+
+    <div class="premium1">
+        <h1>Business</h1>
+        <h3>More tools and power for growth</h3>
+        <h2>US$ <span>9.99</span>/mo</h2>
+        <a href="#"><button>Choose plan</button></a>
+        <h5>Get 48 months for <span>US$ 143.32 (regular price US$ 575.32). Renews as US$ 10.99/mo</span></h5>
+        <h2>🚀 AI Game Builder Pro Plan <br>
+            Create up to 50 AI-powered games<br>
+            50 GB of ultra-fast NVMe storage for game assets<br>
+            5 player accounts per game free for 1 year<br>
+            Everything in Premium, plus:<br>
+            Daily & on-demand backups to protect your game data<br>
+            Build an AI-powered game shop to sell or share your creations<br>
+            AI Game Agent to enhance gameplay and manage content<br>
+            NEW: Create ready-to-play AI games in minutes<br>
+            Boost performance with free CDN for maximum speed</h2>
+    </div>
+    
+    <div class="premium2">
+        <h1>Cloud Startup</h1>
+        <h3>Enjoy optimized performance & powerful resources.</h3>
+        <h2>US$ <span>7.99</span>/mo</h2>
+        <a href="#"><button>Choose plan</button></a>
+        <h5>Get 48 months for <span>US$ 143.32 (regular price US$ 575.32). Renews as US$ 10.99/mo</span></h5>
+        <h2>🏆 AI Game Builder Business+ Plan <br>
+            Create up to 100 AI-driven games <br>
+            100 GB of ultra-fast NVMe storage for graphics, sounds & data <br>
+            10 player accounts per game free for 1 year <br>
+            Everything in Pro, plus: <br>
+            2 free custom game domains for 1 year <br>
+            Exclusive bonus offer for new creators <br>
+            Power boost mode to handle peak traffic during tournaments or events <br>
+            Dedicated unique IP for extra stability and control <br>
+            24/7 priority support for uninterrupted gaming experiences</h2>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column1">
+                <h4>Explore Game Worlds</h4>
+                <ul>
+                    <li><a href="#">MMORPG Universes</a></li>
+                    <li><a href="#">Virtual Reality Worlds</a></li>
+                    <li><a href="#">Open World Games</a></li>
+                    <li><a href="#">Sci-Fi Environments</a></li>
+                    <li><a href="#">Fantasy Kingdoms</a></li>
+                </ul>
+            </div>
+        
+            <div class="footer-column2">
+                <h4>Discover MetaPlay</h4>
+                <ul>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Game Hosting Plans</a></li>
+                    <li><a href="#">User Stories</a></li>
+                    <li><a href="#">Join a Game World</a></li>
+                </ul>
+            </div>
+        
+            <div class="footer-column3">
+                <h4>About MetaPlay</h4>
+                <ul>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Game Partners</a></li>
+                    <li><a href="#">Careers in VR</a></li>
+                    <li><a href="#">Support & Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            ©2025 MetaPlay | Terms of Service | Privacy Policy
+        </div>
+    </footer>
+ 
+    <script>
+
+// Fonction pour le menu Home
+function togglePage() {
+   
+    const miniPage = document.getElementById('miniPageContent');
+    const miniPage1 = document.getElementById('miniPageContent1');
+    
+    // Fermer l'autre menu s'il est ouvert
+    if (miniPage1 && miniPage1.classList.contains('active')) {
+        miniPage1.classList.remove('active');
+    }
+    
+    if (miniPage) {
+        miniPage.classList.toggle('active');
+        console.log('About menu toggled:', miniPage.classList.contains('active'));
+}}
+// Fonction pour le menu About
+function togglePage1() {
+    const miniPage = document.getElementById('miniPageContent');
+    const miniPage1 = document.getElementById('miniPageContent1');
+    
+    // Fermer l'autre menu s'il est ouvert
+    if (miniPage && miniPage.classList.contains('active')) {
+        miniPage.classList.remove('active');
+    }
+    
+    // Basculer le menu About
+    if (miniPage1) {
+        miniPage1.classList.toggle('active');
+        console.log('About menu toggled:', miniPage1.classList.contains('active'));
+    }
+}
+
+// Fonction pour faire défiler vers une section
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+        // Fermer tous les menus après le clic
+        closeAllMenus();
+    }
+}
+
+// Fonction pour fermer tous les menus
+function closeAllMenus() {
+    const miniPage = document.getElementById('miniPageContent');
+    const miniPage1 = document.getElementById('miniPageContent1');
+    
+    if (miniPage && miniPage.classList.contains('active')) {
+        miniPage.classList.remove('active');
+    }
+    
+    if (miniPage1 && miniPage1.classList.contains('active')) {
+        miniPage1.classList.remove('active');
+    }
+}
+
+// Fermer les menus en cliquant à l'extérieur
+document.addEventListener('click', function(event) {
+    const miniPage = document.getElementById('miniPageContent');
+    const miniPage1 = document.getElementById('miniPageContent1');
+    
+    const isClickInsideHome = miniPage && miniPage.contains(event.target);
+    const isClickInsideAbout = miniPage1 && miniPage1.contains(event.target);
+    
+    // Ignorer les clics sur les boutons de navigation
+    const isNavButton = event.target.closest && event.target.closest('.navi');
+    if (isNavButton) return;
+    
+    if (!isClickInsideHome && !isClickInsideAbout) {
+        closeAllMenus();
+    }
+});
+
+// Fermer les menus avec la touche Escape
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeAllMenus();
+    }
+});
+
+// Fonction pour créer avec MindCraftAI
+function createWithMindCraftAI() {
+    console.log('Creating with MindCraftAI...');
+    // Ajoutez ici votre logique de création
+}
+
+// Fonction de recherche de domaine
+function searchDomain() {
+    const input = document.getElementById('domainSearchInput');
+    const domain = input.value.trim();
+    
+    if (domain) {
+        console.log('Searching for domain:', domain);
+        // Ajoutez ici votre logique de recherche de domaine
+        alert(`Recherche en cours pour le domaine: ${domain}`);
+    } else {
+        alert('Veuillez entrer un nom de domaine');
+    }
+}
+
+// Initialisation au chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('MindCraftAI page loaded successfully');
+    
+    // Vérifier que les éléments existent
+    const homeMenu = document.getElementById('miniPageContent');
+    const aboutMenu = document.getElementById('miniPageContent1');
+    
+    if (homeMenu) console.log('Home menu found:', homeMenu.id);
+    if (aboutMenu) console.log('About menu found:', aboutMenu.id);
+});
+</script>
+   
+</body>
+</html>

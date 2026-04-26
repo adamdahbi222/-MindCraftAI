@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindCraftAI</title>
+    <link rel="website icon" type="png"
+    href="Screenshot_2025-03-01_at_23.22.57-removebg-preview.png"    width="100%">
+    
+    <style>
+  
+        .neumorphic {
+            background: #e0e5ec;
+            border-radius: 20px;
+           
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+       
+        .neumorphic-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            width: 300px;
+            text-align: center;
+            border-radius: 15px;
+            background: #e0e5ec;
+            box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+        }
+
+       
+        .neumorphic_input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: #e0e5ec;
+            box-shadow: inset 3px 3px 6px #a3b1c6, inset -3px -3px 6px #ffffff;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+      
+        .error {
+            animation: shake 0.3s ease-in-out;
+            box-shadow: inset 3px 3px 6px red, inset -3px -3px 6px #ffaaaa;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+       
+        .neumorphic_but {
+          padding: 12px 20px;
+          border-radius: 12px;
+          border: none;
+          background: linear-gradient(90deg, #00f0ff, #ff00ff);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          width: 100%;
+          box-sizing: border-box;
+          margin-top: 10px;
+        }
+        .neumorphic_but:hover {
+            box-shadow: inset 3px 3px 6px #a3b1c6, inset -3px -3px 6px #ffffff;
+        }
+
+        .neumorphic_but:active {
+            box-shadow: inset 5px 5px 10px #a3b1c6, inset -5px -5px 10px #ffffff;
+        }
+
+      
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="neumorphic">
+        <div class="neumorphic-card">
+            <h1>Login</h1>
+            <input type="text" id="username" class="neumorphic_input" placeholder="Username">
+            <input type="password" id="password" class="neumorphic_input" placeholder="Password">
+            <p class="error-message" id="error-message">Veuillez remplir tous les champs.</p>
+           <a href="ai2login.html">Creat Account</a>
+           <br>
+            <button class="neumorphic_but" id="login-btn">Sign In</button>
+        </div>
+    </div>
+    <style>
+        .neumorphic-card a{
+            font-family: 'Courier New', Courier, monospace;
+            color: blue;
+        }
+    </style>
+
+    <script>
+        document.getElementById("login-btn").addEventListener("click", function () {
+            const username = document.getElementById("username");
+            const password = document.getElementById("password");
+
+            fetch("login.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+            })
+            .then(res => res.text())
+            .then(data => {
+                if (data.trim() === "success") {
+                    document.getElementById("success-message").style.display = "block";
+                    document.getElementById("error-message").style.display = "none";
+                } else {
+                    document.getElementById("error-message").style.display = "block";
+                    document.getElementById("success-message").style.display = "none";
+                }
+            })
+            .catch(err => {
+                alert("Erreur de connexion au serveur.");
+                console.error(err);
+            });
+        });
+    </script>
+
+       
+        
+</body>
+</html>
